@@ -1,0 +1,58 @@
+
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>QNA</title>
+{% load staticfiles %}
+<link href="{% static 'main.css' %}" rel="stylesheet" type="text/css" />
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+
+{% load poll_tags %}
+
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+
+
+</head>
+{% block navbar %}
+<div id="nav-outer">
+<div id="nav-inner">
+<ul>
+<li><a href="#">INSERT LOGO</a></li>
+<li><a href="{% url landing %}">Home</a></li>
+<li><a href = "/poll/addpoll/">Submit</a></li>
+<li><a href="{%url profile %}">Profile</a></li>
+<li>
+{% if user.is_authenticated %}
+<a rel="nofollow" class="logout" href="/logout/">Logout</a>
+{% else %}
+<a href="#">Login</a>
+{% endif %}
+</li>
+<li>Logged in as {{user.username}}</li>
+</ul>
+</div>
+</div>
+{% endblock %}
+<body>
+
+
+{% block profile_info %}
+
+{% endblock %}
+
+{% block submissions %}
+{%endblock%}
+
+{%block answered %}
+{%endblock%}
+</body>
+
+<div id="footer">
+<p>Copyright gibberish.</p>
+<a rel="nofollow" class="logout" href="/logout/">Logout</a>
+<a href="{% url home %}">Home</a>
+</div>
+
+
+</html>

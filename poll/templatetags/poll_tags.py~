@@ -1,0 +1,43 @@
+from django import template
+from django.conf import settings
+from poll.models import *
+from poll import views
+register = template.Library()
+from core.models import CustomUser
+
+@register.simple_tag(takes_context=True)
+def poll(context):
+    request = context['request']
+
+    try:
+        poll = Poll.published.latest("date")
+    except:
+        return ''
+
+    if poll.get_cookie_name() not in request.COOKIES:
+        return views.poll(context['request'], poll.id).content
+    else:
+        return views.result(context['request'], poll.id).content
+
+@register.simple_tag
+def percentage(poll, item):
+	poll_vote_count = poll.get_vote_count()
+	if poll_vote_count > 0:
+		return float(item.get_vote_count()) / float(poll_vote_count) * 100
+	else:
+		return 0
+
+
+		
+@register.simple_tag()
+def votecount(poll, item, customuser):
+	totalpollcount = 0
+	if customuser.submissions.all().count() > 1:
+		for poll in customuser.submissions.all():
+			totalpollcount += poll.get_vote_count()
+	else:
+		try:
+			totalpollcount = customuser.submissions.all()[0].get_vote_count()
+		except IndexError:
+			totalpollcount = 0
+	return totalpollcount

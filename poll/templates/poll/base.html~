@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<head>
+   <title>{% block title %}QNA{% if title %} - {{ title }}{% endif %}{% endblock %}</title>
+   {% block extrahead %}{% endblock %}
+   {%block styles%}
+{% load staticfiles %}
+<link href="{% static 'main.css' %}" rel="stylesheet" type="text/css" />
+{%endblock%}
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+
+{% load poll_tags %}
+
+
+
+{% block poll_script %}
+
+{% endblock %}
+
+{%block navbar%}
+</head>
+<div id="nav-outer">
+<div id="nav-inner">
+<ul>
+<li><a href="#">INSERT LOGO</a></li>
+<li><a href="{% url landing %}">Home</a></li>
+<li><a href = "/poll/addpoll/">Submit</a></li>
+<li><a href="{%url profile %}">Profile</a></li>
+<li>
+{% if user.is_authenticated %}
+<a rel="nofollow" class="logout" href="/logout/">Logout</a>
+{% else %}
+<a href="#">Login</a>
+{% endif %}
+</li>
+<li>Logged in as {{user.username}}</li>
+</ul>
+</div>
+</div>
+{%endblock%}
+
+
+<body>
+<div id="container">
+{%load poll_tags%}
+{%block content%}
+
+
+{%endblock%}
+
+</div>
+</body>
+
+{%block footer%}
+<div id="footer">
+<p>Copyright gibberish.</p>
+<a rel="nofollow" class="logout" href="/logout/">Logout</a>
+<a href="{% url landing %}">Home</a>
+</div>
+{%endblock%}
+
+
+</html>

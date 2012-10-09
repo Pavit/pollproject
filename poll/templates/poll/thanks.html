@@ -1,0 +1,13 @@
+
+
+{% load i18n %}
+{% load poll_tags %}
+
+{% block poll_content %}
+{% load poll_tags %}
+
+<p>Thanks for your submission, {{user.username}}</p>
+<a href="{% url home %}">Go back home</a>
+
+
+{% endblock %}

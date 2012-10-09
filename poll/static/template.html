@@ -1,0 +1,79 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>QNA</title>
+<link href="main.css" rel="stylesheet" type="text/css" />
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+</head>
+
+<body>
+
+<div id="nav">
+<ul>
+<li><a href="#">Home</a></li>
+<li><a href="#">Submit</a></li>
+<li><a href="#">Profile</a></li>
+<li><a href="#">Login</a></li>
+</ul>
+</div>
+
+<div id="container">
+
+<div id="header">
+<h1>INSERT LOGO</h1>
+</div>
+
+<div class="content">
+<h1>CURRENT QUESTION</h1>
+<form method="POST" action="/poll/vote/3/">
+<p class="poll_title">How do you feel about eating meat?</p>
+<ul class="current_question">
+
+<li><input class="radio" type="radio" name="item" id="item_7" value="7" onclick="this.form.submit();"/>
+<label for="item_7"><p class="questions">I can't enjoy a meal unless it once had hopes and dreams.</p></label></li>
+
+<li><input class="radio" type="radio" name="item" id="item_6" value="6" onclick="this.form.submit();"/>
+<label for="item_6"><p class="questions">Meat is delicious.</p></label</li>
+
+<li><input class="radio" type="radio" name="item" id="item_5" value="5" onclick="this.form.submit();"/>
+<label for="item_5"><p class="questions">Eating meat is unhealthy.</p></label></li>
+
+<li><input class="radio" type="radio" name="item" id="item_4" value="4" onclick="this.form.submit();"/>
+<label for="item_4"><p class="questions">Eating meat is inhumane and uncivilized.</p></label></li>
+</ul>
+</form>
+</div>
+
+<div class="content">
+<h1>PREVIOUS QUESTION</h1>
+<p class="poll_title">Can you swim?</p>
+<ul class="previous_question">
+
+<li>
+<p class="questions">No: 50%</p>
+<div class="graph" style="width: 50.0%;"></div>
+</li>
+
+<li>
+<p class="questions">Yes: 25%</p>
+<div class="graph" style="width: 25.0%;"></div>
+</li>
+
+</ul>
+<p class="total_votes">Total votes: <b>16</b></p><br>
+</div>
+
+<div class="content">
+<h1>STATISTICS</h1>
+<p class="stat">You are the <span class="number">500</span>th person to answer this question.</p>
+<p class="stat">You have the same views as <span class="number">52%</span> of the people in your age group.
+</div>
+
+<div id="footer">
+<p>Copyright gibberish.</p>
+</div>
+
+</div>
+</body>
+
+</html>

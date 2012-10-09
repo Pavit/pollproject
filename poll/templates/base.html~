@@ -1,0 +1,46 @@
+# base.html
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>QNA</title>
+{% load staticfiles %}
+<link href="{% static 'main.css' %}" rel="stylesheet" type="text/css" />
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+
+{% load poll_tags %}
+
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+
+{% block poll_script %}
+
+{% endblock %}
+</head>
+<body>
+<div id="nav">
+<ul>
+<li><a href="#">Home</a></li>
+<li><a href="#">Submit</a></li>
+<li><a href="#">Profile</a></li>
+<li><a href="#">Login</a></li>
+</ul>
+</div>
+<div = 'container'>
+
+	{% block current_question %}
+
+	{% endblock %}
+
+	{% block previous_question %}
+
+	{% endblock %}
+
+	{% block statistics %}
+	{% endblock %}
+</div>
+</body>
+<footer>
+<a rel="nofollow" class="logout" href="/logout/">Logout</a>
+<a href="{% url home %}">Home</a>
+</footer>
+</html>

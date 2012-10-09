@@ -1,0 +1,312 @@
+@charset "utf-8";
+
+/* General */
+
+a	{
+	color: #ffffff;
+	text-decoration: none;
+}
+
+a:hover	{
+	color: #bbbbbb;
+}
+
+
+body {
+	background-color: #f1f1f1;
+	font-family: Trebuchet MS, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	margin: 0;
+	padding: 0;
+}
+
+div#container	{
+	clear: both;
+	margin: 0 auto;
+	position: relative;
+	width: 40em;
+}
+
+/* Text Formatting */
+
+h1	{
+	color: #ffffff;
+	font-size: xx-large;
+	text-align: center;
+}
+
+h2	{
+	color: #ffffff;
+	font-size: x-large;
+	text-align: center;
+}
+
+h3	{
+	color: #ffffff;
+	font-size: large;
+	text-align: left;
+}
+
+p.option	{
+	font-size: small;
+	text-align: center;
+}
+
+span.right	{
+	float: right;
+}
+
+/* Landing */
+
+#landing-top	{
+	background-color: #333333;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #BCBEC0;
+	height: 10em;
+	margin: 0;
+	padding: 0;
+	position: relative;
+}
+
+#landing-middle	{
+}
+
+#landing-box-clear	{
+	color:	#333333;
+	float: right;
+	margin: 1em 4em 1em 0;
+	padding: 2.5em 0 2em 5em;
+	text-align: right;
+}
+
+#landing-box-clear p	{
+	margin: 0;
+}
+
+#landing-box-red	{
+	-moz-border-radius: 8px;
+	background-color: #d94d4a;
+	border-color: #BCBEC0;
+	border-radius: 8px;
+	border-style: solid;
+	border-width: 1px;
+	color:	#ffffff;
+	float: right;
+	margin: 1em 4em 1em 0;
+	padding: 3em 5em 3em 5em;
+	text-align: right;
+	width: 20em;
+}
+
+#landing-bottom	{
+	clear: both;
+	background-color: #333333;
+	color: ffffff;
+	bottom: 0px;
+	padding-left: 3em;
+	position: absolute;
+	width: 100%;
+}
+
+
+/* Nav */
+
+#nav-outer	{
+}
+
+#nav-inner	{
+}
+
+#nav-inner ul	{
+	background-color: #232323;
+	float: left;
+	list-style: none;
+	margin: 0 0 1em 0;
+	padding: 0;
+	width: 100%;
+}
+
+#nav-inner li	{
+	float: left;
+}
+
+
+#nav-inner li	a {
+	display: block;
+	padding: 10px 15px;
+	text-align: center;
+}
+
+#nav-inner li a:hover {
+	color: #ffffff;
+	background-color: #333333;
+}
+
+/* Content */
+
+div.currentquestion	{
+	-moz-border-radius: 8px;
+	background-color: #d94d4a;
+	border-color: #BCBEC0;
+	border-radius: 8px;
+	border-style: solid;
+	border-width: 1px;
+	color:	#ffffff;
+	margin: 0 0 1em 0;
+	padding: 2em 5em 3em 5em;
+	text-align: justify;
+}
+
+
+div.red	{
+	-moz-border-radius: 8px;
+	background-color: #d94d4a;
+	border-color: #BCBEC0;
+	border-radius: 8px;
+	border-style: solid;
+	border-width: 1px;
+	color:	#ffffff;
+	margin: 0 0 1em 0;
+	padding: 2em 5em 3em 5em;
+	text-align: justify;
+}
+
+div.previousquestion	{
+	-moz-border-radius: 8px;
+	background-color: #333333;
+	border-color: #BCBEC0;
+	border-radius: 8px;
+	border-style: solid;
+	border-width: 1px;
+	color:	#ffffff;
+	margin: 0 0 1em 0;
+	padding: 2em 5em 3em 5em;
+	text-align: justify;
+}
+
+
+div.content	{
+	-moz-border-radius: 8px;
+	background-color: #333333;
+	border-color: #BCBEC0;
+	border-radius: 8px;
+	border-style: solid;
+	border-width: 1px;
+	color:	#ffffff;
+	margin: 0 0 1em 0;
+	padding: 2em 5em 3em 5em;
+	text-align: justify;
+}
+
+/* Expansion */
+
+.expanderContent	{
+	display: none;
+}
+
+.expanderHead	{
+	cursor: pointer;
+	margin: 0;
+}
+
+span.expanderSign	{
+	float: right;
+}
+
+
+/* Questions */
+
+div.graph {
+	background: #ffffff;
+	border: 1px solid #ffffff;
+	height: 8px;
+	margin: 2px 0 2px 0;
+}
+
+input.radio	{
+	float: left;
+	margin-right: 10px;
+}
+
+p.poll_title	{
+	font-size: large;
+	text-align: center;
+}
+
+p.questions	{
+	font-size: small;
+	margin: 0;
+	text-align: justify;
+}
+
+p.total_votes	{
+	font-size: x-small;
+	text-align: right;
+}
+
+ul.current_question	{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul.current_question li	{
+	margin-bottom: 10px;
+}
+
+ul.previous_question	{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul.previous_question li	{
+	margin-bottom: 5px;
+}
+
+/* Stats/Misc */
+
+p.stat	{
+	font-size: small;
+}
+
+span.number	{
+	font-size: x-large;
+}
+
+/* Submission */
+
+div.item	{
+	width: 100%;
+}
+
+input#id_form-0-value,
+input#id_form-1-value,
+input#id_form-2-value,
+input#id_form-3-value,
+input#id_form-4-value	{
+	width: 95%;
+}
+
+
+
+input#id_title	{
+	width: 100%;
+}
+
+
+input#submit	{
+	float: right;
+}
+
+/* Footer */
+
+div#footer	{
+	color: #333333;
+	font-size: x-small;
+	text-align: justify;
+}
+
+div#footer p	{
+}

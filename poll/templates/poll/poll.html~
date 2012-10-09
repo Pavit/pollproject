@@ -1,0 +1,25 @@
+{% extends "poll/base.html" %}
+
+{% load i18n %}
+
+{% load url from future %}
+
+
+{{user.username}}
+
+{% block poll_content %}
+<div class="poll_style">
+<form method="POST" action="{% url vote poll.id %}">
+{% csrf_token %}
+<p class="title">{{ poll.title }}</p>
+<ul>
+{% for i in items %}
+{% csrf_token %}
+<li><input type="radio" name="item" id="item_{{ i.id }}" value="{{ i.id }}" onclick="this.form.submit();"/>
+<label for="item_{{ i.id }}">{{ i.value }}</label></li>
+{% endfor %}
+</ul>
+</form>
+</div>
+{% endblock %}
+						

@@ -1,0 +1,60 @@
+{% extends "poll/base.html" %}
+
+{% load i18n %}
+{% load poll_tags %}
+
+{% block poll_content %}
+{% load poll_tags %}
+<div class="poll_style">
+	<p><b>Previous Question:</b></p>
+	<p class="title">{{ poll.title }}</p>
+	<ul>
+		{% for i in items %}
+		<li>{{ i.value }}: <b>{% filter floatformat %}{% percentage poll i %}{% endfilter %}%</b><br>
+			<div style="background: #D1B692; border: 1px solid #AD8346; height: 8px; width: {% percentage poll i %}%;"></div>
+		</li>
+		{% endfor %}
+	</ul>
+	<p>{% trans "Total votes" %}: <b>{{ poll.get_vote_count }}</b></p><br>
+</div>
+
+<div class="poll_style">
+<form method="GET" action="vote" id="poll_form">
+<p class="title">{{ nextpoll.title }}</p>
+<ul>
+{% for i in nextitems %}
+<li><input type="radio" name="item" id="item_{{ i.id }}" value="{{ i.id }}" />
+<label for="item_{{ i.id }}">{{ i.value }}</label></li>
+{% endfor %}
+</ul>
+<p class="poll_send"><input type="button" action="vote" id="poll_send" value="{% trans "Vote" %}" /></p>
+</form>
+</div>
+{% endblock %}
+
+
+{% block poll_script %}
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+<script>
+var vote_url = '{% url poll_ajax_vote nextpoll.pk %}';
+var result_url = '{% url poll_result nextpoll.pk %}';
+$(document).ready(function() {
+	function showResults() {
+		$.get(result_url, function(data) {
+			$("#poll_container").html(data);
+			});
+			}
+			$("#poll_send").click(function() {
+				item = $('#poll_form input[name=item]:checked').val();
+				if (typeof item === "undefined") {
+					alert("{% trans "Please, select an answer" %}");
+					return false;
+					}
+					$.get(vote_url, {item: item}, function() {
+						showResults();
+						});
+						return false;
+						});
+						});
+						</script>
+						{% endblock %}

@@ -1,0 +1,169 @@
+<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>QNA</title>
+{%load staticfiles %}
+<link href="{% static 'main.css' %}" rel="stylesheet" type="text/css" />
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".expanderHead").click(function(){
+		$(".expanderContent").slideToggle();
+		if ($(".expanderSign").text() == "+"){
+			$(".expanderSign").html("−")
+		}
+		else {
+			$(".expanderSign").text("+")
+		}
+	});
+	$(".expanderHead2").click(function(){
+		$(".expanderContent2").slideToggle();
+		if ($(".expanderSign").text() == "+"){
+			$(".expanderSign").html("−")
+		}
+		else {
+			$(".expanderSign").text("+")
+		}
+	});
+});
+</script>
+</head>
+
+<body>
+
+
+
+{%include "poll/nav.html"%}
+{% load poll_tags %}
+<div id="container">
+
+<!-- Beginning of content -->
+
+<!-- Profile -->
+
+<div class="content">
+<h1>{{user.first_name}}'s PROFILE</h1>
+
+<!-- General statistics -->
+
+<p class="stat">Age range:
+{% if user.age > 15 and 20 > user.age %}
+[15-19]
+{%else%}
+{% if user.age >= 20 and 25 > user.age %}
+[20-24]
+{%else%}
+{% if user.age >= 25 and 30 > user.age %}
+[25-29]
+{%else%}
+{% if user.age >= 30 and 35 > user.age %}
+[30-34]
+{%endif%}{%endif%}{%endif%}{%endif%}
+</p>
+<p class="stat">Location: {%if user.location %}[{{user.location}}] {%else%} Not provided! {%endif%}</p>
+<p class="stat">User since {{user.created_at|date:"F j, Y"}}.</p>
+<p class="stat">Has answered {{user.vote_set.count}} out of {{pollcount}} available questions.</p>
+{%if user.vote_set.count >= pollcount %}<P style="color:#d94d4a"><B>YOU ANSWERED ALL QUESTIONS!</b></p>{%endif%}
+<p class="stat">Answers questions at a rate of [5] per day.<b>[TO DO]</b></p>
+<p class="stat">Has skipped [9] questions.<b>[TO DO]</b></p>
+<p class="stat">Has submitted {{user.submissions.count}} question{%if user.submissions.count == 1 %}{%else%}s{%endif%}, with {% votecount poll i user %} responses.</p>
+<!-- Questions user has submitted -->
+
+<h3 class="expanderHead">SUBMISSIONS<span class="expanderSign">+</span></h3>
+
+
+<div class="expanderContent">
+<!-- Begin insertion of user-submitted questions -->
+{% for poll in user.submissions.all %}
+<p class="poll_title">{{ poll.title }}</p></br>
+<p class="stat">TAGS:</br>{{poll.tags}}</p>
+<center>
+   <div id='fb-root'>
+    <script src='http://connect.facebook.net/en_US/all.js'></script>
+    
+    <p><a onclick='postToFeed(); return false;'>Post to Feed</a></p>
+    <p id='msg'></p>
+
+        <script>
+      FB.init({appId: "{{APP_ID}}", status: true, cookie: true});
+
+      function postToFeed() {
+
+        // calling the API ...
+        var obj = {
+          method: 'feed',
+          link: 'http://pollproject.herokuapp.com/poll/polls/{{poll.id}}',
+          picture: 'http://fbrell.com/f8.jpg',
+          name: 'Poll Project',
+          caption: '{{poll.title}}',
+          description: 'Answer my question!'
+        };
+
+        function callback(response) {
+          document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
+        }
+
+        FB.ui(obj, callback);
+      }
+
+    </script>
+    </div>
+    </center>
+<ul class="previous_question">
+{% for i in poll.item_set.all %}
+<li>
+<p class="questions">{{ i.value }}: {% filter floatformat %}{% percentage poll i %}{% endfilter %}%</p>
+<div class="graph" style="width: {% percentage poll i %}%;"></div>
+</li>
+{% endfor %}
+
+
+</ul>
+<p class="total_votes">Total votes: <b>{{ poll.get_vote_count }}</b></p><br>
+{% endfor %}
+<!-- End insertion of user-submitted questions -->
+</div>
+
+<!-- Questions user has answered -->
+
+<h3 class="expanderHead2">QUESTIONS ANSWERED <span class="expanderSign">+</span></h3>
+<div class="expanderContent2">
+<!-- Begin insertion of user-answered questions -->
+{% for poll in user.answered.all %} 
+
+<p class="poll_title">{{poll.title}}</p>
+<ul class="previous_question">
+
+{% for i in poll.item_set.all %}
+	<li>
+		<p class="questions">{{ i.value }}: {% filter floatformat %}{% percentage poll i %}{% endfilter %}%</p>
+		<p class = "questions">Males: {{i.get_vote_count_male}}</p>
+		{%if user in i.selected_by.all %}
+		<div class="uservotegraph" style="width: {% percentage poll i %}%;"></div>
+		{%else%}
+		<div class="graph" style="width: {% percentage poll i %}%;"></div>
+		{%endif%}
+
+	</li>
+{% endfor %}
+
+
+</ul>
+<p class="total_votes">Total votes: <b>{{ poll.get_vote_count }}</b></p><br>
+{% endfor %}
+<!-- End insertion of user-answered questions -->
+</div>
+</div>
+
+<!-- End ofcontent -->
+
+<div id="footer">
+<p>Copyright gibberish.</p>
+</div>
+
+</div>
+</body>
+
+</html>

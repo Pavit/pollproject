@@ -1,0 +1,97 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>QNA</title>
+{% load staticfiles %}
+<link href="{% static 'main.css' %}" rel="stylesheet" type="text/css" />
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".expanderHead").click(function(){
+		$(".expanderContent").slideToggle();
+		if ($(".expanderSign").text() == "+"){
+			$(".expanderSign").html("−")
+		}
+		else {
+			$(".expanderSign").text("+")
+		}
+	});
+});
+</script>
+</head>
+
+<body>
+
+<div id="nav-outer">
+<div id="nav-inner">
+<ul>
+<li><a href="#">INSERT LOGO</a></li>
+<li><a href="{% url landing %}">Home</a></li>
+<li><a href = "{% url addpoll %}">Submit</a></li>
+<li><a href="{%url profile %}">Profile</a></li>
+
+{% if user.is_authenticated %}
+<li><a rel="nofollow" class="logout" href="/logout/">Logged in as {{user.first_name}}, click to logout.</a></li>
+{% else %}
+<li><a href="#">Login</a></li>
+{% endif %}
+</ul>
+</div>
+</div>
+
+<div id="container">
+
+<!-- Beginning of content -->
+
+<!-- Current Question -->
+{% block poll_content %}
+{% load poll_tags %}
+<div class="currentquestion">
+<form method="POST" action="{% url vote nextpoll.id %}">
+<p class="poll_title">{{nextpoll.title}}</p>
+<ul class="current_question">
+{% for i in nextpoll.item_set.all %}
+{% csrf_token %}
+<li><input class="radio" type="radio" name="item" id="item_{{ i.id }}" value="{{ i.id }}" onclick="this.form.submit();"/>
+<label for="item_{{ i.id}}"><p class="questions">{{ i.value }}</p></label></li>
+{% endfor %}
+</ul>
+</form>
+<form action="{% url skip nextpoll.id %}" method="GET">
+    <input type="submit" value="SKIP!!" name="Submit" id="frm1_submit" />
+</form>
+</div>
+
+<!-- End Current Question -->
+
+<!-- Previous Question -->
+{% if poll %}
+<div class="previousquestion">
+<p class="poll_title">{{ poll.title }}</p>
+<ul class="previous_question">
+{% for i in items %}
+<li>
+<p class="questions">{{ i.value }}: {% filter floatformat %}{% percentage poll i %}{% endfilter %}%</p>
+<div class="graph" style="width: {% percentage poll i %}%;"></div>
+</li>
+{% endfor %}
+
+</ul>
+<p class="total_votes">Total votes:  <b>{{ poll.get_vote_count }}</b></p><br>
+</div>
+{%else%}
+{%endif%}
+{%endblock%}
+
+<!-- End Previous Question -->
+
+<!-- End ofcontent -->
+
+<div id="footer">
+<p>Copyright gibberish.</p>
+</div>
+
+</div>
+</body>
+
+</html>

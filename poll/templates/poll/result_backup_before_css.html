@@ -1,0 +1,40 @@
+{% extends "poll/base.html" %}
+
+{% load i18n %}
+
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'main.css' %}" type="text/css" media="screen" />
+
+
+
+
+{% block poll_content %}
+{% load poll_tags %}
+<div class="poll_style">
+<p><b>Previous Question:</b></p>
+<p class="title">{{ poll.title }}</p>
+<ul>
+{% for i in items %}
+<li>{{ i.value }}: <b>{% filter floatformat %}{% percentage poll i %}{% endfilter %}%</b><br>
+<div style="background: #D1B692; border: 1px solid #AD8346; height: 8px; width: {% percentage poll i %}%;"></div>
+</li>
+{% endfor %}
+</ul>
+<p>{% trans "Total votes" %}: <b>{{ poll.get_vote_count }}</b></p><br>
+</div>
+
+
+<div class="poll_style">
+<form method="POST" action="{% url vote nextpoll.id %}">
+{% csrf_token %}
+<p class="title">{{ nextpoll.title }}</p>
+<ul>
+{% for i in nextitems %}
+{% csrf_token %}
+<li><input type="radio" name="item" id="item_{{ i.id }}" value="{{ i.id }}" onclick="this.form.submit();"/>
+<label for="item_{{ i.id }}">{{ i.value }}</label></li>
+{% endfor %}
+</ul>
+</form>
+</div>
+{% endblock %}

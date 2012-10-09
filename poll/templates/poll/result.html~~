@@ -1,0 +1,86 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>QNA</title>
+{% load staticfiles %}
+<link href="{% static 'main.css' %}" rel="stylesheet" type="text/css" />
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+</head>
+
+<body>
+
+<div id="nav">
+<ul>
+<li><a href="{% url home %}">Home</a></li>
+<li><a href = "/poll/addpoll/">Submit</a></li>
+<li><a href="#">Profile</a></li>
+<li>
+{% if user.is_authenticated %}
+<a rel="nofollow" class="logout" href="/logout/">Logout</a>
+{% else %}
+<a href="#">Login</a>
+{% endif %}
+</li>
+</ul>
+</div>
+
+<div id="container">
+
+<div id="header">
+<h1>INSERT LOGO</h1>
+</div>
+
+{% block poll_content %}
+{% load poll_tags %}
+<div class="content">
+<h1>CURRENT QUESTION</h1>
+<form method="POST" action="{% url vote nextpoll.id %}">
+<p class="poll_title">{{nextpoll.title}}</p>
+<ul class="current_question">
+{% for i in nextitems %}
+{% csrf_token %}
+<li><input class="radio" type="radio" name="item" id="item_{{ i.id }}" value="{{ i.id }}" onclick="this.form.submit();"/>
+<label for="item_{{ i.id}}"><p class="questions">{{ i.value }}</p></label></li>
+{% endfor %}
+</ul>
+{% if poll %}
+<a href = "{% url skip poll.id nextpoll.id %}">SKIP!</a>
+{%else%}
+<a href = "{% url skip nextpoll.id %}">SKIP!</a>
+{%endif%}
+</form>
+</div>
+
+{% if poll %}
+<div class="content">
+<h1>PREVIOUS QUESTION</h1>
+<p class="poll_title">{{ poll.title }}</p>
+<ul class="previous_question">
+{% for i in items %}
+<li>
+<p class="questions">{{ i.value }}: {% filter floatformat %}{% percentage poll i %}{% endfilter %}%</p>
+<div class="graph" style="width: {% percentage poll i %}%;"></div>
+</li>
+{% endfor %}
+
+</ul>
+<p class="total_votes">Total votes:  <b>{{ poll.get_vote_count }}</b></p><br>
+</div>
+{%else%}
+{%endif%}
+{%endblock%}
+
+<div class="content">
+<h1>STATISTICS</h1>
+<p class="stat">You are the <span class="number">500</span>th person to answer this question.</p>
+<p class="stat">You have the same views as <span class="number">52%</span> of the people in your age group.
+</div>
+
+<div id="footer">
+<p>Copyright gibberish.</p>
+</div>
+
+</div>
+</body>
+
+</html>

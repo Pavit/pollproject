@@ -1,0 +1,24 @@
+{% extends "poll/base.html" %}
+
+{% load i18n %}
+{% load poll_tags %}
+
+{% block poll_content %}
+{% load poll_tags %}
+
+
+{% for key, value in graphinfo.items %}
+{{key}}: {{value}}
+{% for x in key.items %}
+{{item}}
+{%endfor%}
+<br/>
+{%endfor%}
+
+<p>Welcome back {{user.username}}</p>
+{{user}}
+<p>Get started!</p><a href="/poll/poll/{{startpoll.pk}}">Start!!</a></br>
+<a href = "/poll/addpoll/">Add a question!!</a>
+
+
+{% endblock %}
