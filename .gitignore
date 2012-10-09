@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 venv
 *.pyc
 *.json
 .git
+=======
+*.log
+*.pot
+*.pyc
+local_settings.py
+>>>>>>> 6300539c64aaac1d6e20bef1c496a9f1d492030b
